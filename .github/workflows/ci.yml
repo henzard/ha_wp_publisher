@@ -52,5 +52,3 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest --maxfail=1 --disable-warnings -v
-        env:
-          PYTHONPATH: ${{ github.workspace }}/ha_wp_publisher
