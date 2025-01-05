@@ -1,0 +1,83 @@
+# -------------------------------
+#  Python Byte-compiled / Cache
+# -------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+*.egg
+*.pyo
+*.pyd
+*.pdb
+
+# -------------------------------
+#  Virtual Environment
+# -------------------------------
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+python-env/
+
+# -------------------------------
+#  Build / Distribution
+# -------------------------------
+build/
+develop-eggs/
+dist/
+wheels/
+*.manifest
+*.spec
+
+# -------------------------------
+#  Unit Test / Coverage
+# -------------------------------
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+.tox/
+.nox/
+htmlcov/
+coverage.xml
+nosetests.xml
+test_output/
+
+# -------------------------------
+#  Editor / IDE
+# -------------------------------
+.vscode/
+.idea/
+*.sublime-workspace
+*.code-workspace
+
+# -------------------------------
+#  OS / Misc
+# -------------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------------
+#  Jupyter Notebook
+# -------------------------------
+.ipynb_checkpoints
+
+# -------------------------------
+#  Home Assistant Specific
+# -------------------------------
+# If you're storing HA configuration, you might exclude secrets
+secrets.yaml
+home-assistant.log
+home-assistant_v2.db
+OZW_Log.txt
+
+# -------------------------------
+#  Lovelace / Front-end
+# -------------------------------
+# Often compiled or auto-generated front-end artifacts:
+node_modules/
+npm-debug.log
+yarn-error.log
