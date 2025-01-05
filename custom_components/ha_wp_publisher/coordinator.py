@@ -1,5 +1,5 @@
 import logging
-import requests
+import aiohttp
 from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
@@ -126,20 +126,20 @@ class WordPressPublisherCoordinator(DataUpdateCoordinator):
             endpoint = f"{self.wp_url.strip('/')}/wp-json/wp/v2/{self.post_type.strip('/')}"
             _LOGGER.debug("POST endpoint: %s", endpoint)
 
-            response = requests.post(
-                endpoint,
-                json=post_data,
-                auth=(self.wp_user, self.wp_password),
-                timeout=10
-            )
-            response.raise_for_status()
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    endpoint,
+                    json=post_data,
+                    auth=aiohttp.BasicAuth(self.wp_user, self.wp_password),
+                    timeout=10
+                ) as response:
+                    response.raise_for_status()
+                    _LOGGER.info("Successfully published %s state to WP. Response: %s", entity_id, await response.text())
 
-            _LOGGER.info("Successfully published %s state to WP. Response: %s", entity_id, response.text)
-
-            # Update last publish info
-            self.last_publish_info["last_published_entity"] = entity_id
-            self.last_publish_info["last_published_time"] = self.hass.helpers.event.dt_util.now()
-            self.last_publish_info["last_publish_error"] = None
+                    # Update last publish info
+                    self.last_publish_info["last_published_entity"] = entity_id
+                    self.last_publish_info["last_published_time"] = self.hass.helpers.event.dt_util.now()
+                    self.last_publish_info["last_publish_error"] = None
 
         except Exception as err:
             _LOGGER.error("Error publishing %s to WP: %s", entity_id, err)

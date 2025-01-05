@@ -1,9 +1,9 @@
 {
   "domain": "ha_wp_publisher",
   "name": "HA WP Publisher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "documentation": "https://github.com/henzard/ha_wp_publisher/blob/main/README.md",
-  "requirements": ["requests"],
+  "requirements": ["requests", "aiohttp"],
   "dependencies": [],
   "codeowners": ["@henzard"],
   "config_flow": true,
