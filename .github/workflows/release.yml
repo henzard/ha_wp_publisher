@@ -5,25 +5,27 @@ on:
     branches:
       - main
       - develop
+      - 'feature/**'
+      - 'release/**'
+      - 'hotfix/**'
   pull_request:
     types: [closed]
     branches:
       - main
-      - develop
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure the entire history is fetched for Release Please
+          fetch-depth: 0  # Required for Release Please to access the commit history
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '14'  # Release Please requires Node.js
 
       - name: Install Release Please
         run: npm install -g release-please
@@ -32,4 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          release-please release-pr --token=${GITHUB_TOKEN} --repo-url=https://github.com/henzard/ha_wp_publisher.git
+          release-please release-pr
