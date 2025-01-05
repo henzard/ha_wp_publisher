@@ -1,0 +1,16 @@
+{
+  "name": "HA WP Publisher",
+  "author": "Henzard Kruger",
+  "description": "Home Assistant integration to publish sensor data to WordPress, along with a custom Lovelace card.",
+  "category": "integration",
+  "logo": "https://github.com/henzard/ha_wp_publisher/raw/main/logo.png",
+  "screenshots": [
+    "https://github.com/henzard/ha_wp_publisher/raw/main/screenshots/screenshot1.png",
+    "https://github.com/henzard/ha_wp_publisher/raw/main/screenshots/screenshot2.png"
+  ],
+  "readme": "https://github.com/henzard/ha_wp_publisher/blob/main/README.md",
+  "documentation": "https://github.com/henzard/ha_wp_publisher/blob/main/README.md",
+  "issues": "https://github.com/henzard/ha_wp_publisher/issues",
+  "github": "https://github.com/henzard/ha_wp_publisher",
+  "version": "1.0.0"
+}
