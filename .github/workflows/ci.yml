@@ -21,7 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure full history is fetched for versioning
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -46,6 +46,4 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest --maxfail=1 --disable-warnings -q
-        env:
-          PYTHONPATH: ${{ github.workspace }}
+          PYTHONPATH=${{ github.workspace }} python -m pytest --maxfail=1 --disable-warnings -q

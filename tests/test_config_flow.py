@@ -1,5 +1,6 @@
 # tests/test_config_flow.py
 
+"""Test the config flow."""
 import json
 import pytest
 from unittest.mock import patch
@@ -7,6 +8,7 @@ from unittest.mock import patch
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 
+# Import directly from the module path
 from custom_components.ha_wp_publisher.config_flow import WPConfigFlow
 from custom_components.ha_wp_publisher.const import (
     DOMAIN,
