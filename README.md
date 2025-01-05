@@ -1,38 +1,80 @@
-# HA WP Publisher
+# HA WP Publisher 🚀📄
 
-*Home Assistant integration to publish sensor data to WordPress, along with a custom Lovelace card.*
+*Transform your Home Assistant sensor data into engaging WordPress posts with ease!*
 
-## Features
-- **Config Flow UI**: Easily configure your WordPress URL, credentials, and sensor entities.
-- **Customizable Post Types & Fields**: Publish to custom WordPress post types and include custom fields.
-- **Expanded Templating & Formatting**: Use Jinja2 templates for post titles and content.
-- **Real-Time or Scheduled Publishing**: Choose between immediate publishing on state changes or scheduled batch updates.
-- **Advanced Logging & Monitoring**: Track publish status and errors via a sensor entity.
-- **Custom Lovelace Card**: Visualize publish status directly on your Home Assistant dashboard.
+![HA WP Publisher Logo](https://github.com/henzard/ha_wp_publisher/raw/main/logo.png)
 
-## Installation
+## Overview 🌟
 
-### 1. Install the Integration via HACS (Preferred)
+**HA WP Publisher** is a nifty Home Assistant custom integration that automatically publishes your sensor data to your WordPress site. Whether you want to blog about your home's temperature, humidity, or any other sensor magic, HA WP Publisher has got you covered!
+
+## Features ✨
+
+- **Seamless Integration**: Connect Home Assistant with WordPress effortlessly.
+- **Customizable Post Types & Fields**: Choose how your sensor data is structured in WordPress.
+- **Dynamic Templating**: Craft beautiful and informative posts using Jinja2 templates.
+- **Real-Time & Scheduled Publishing**: Publish immediately on sensor changes or at set intervals.
+- **Advanced Logging & Monitoring**: Keep track of your publishing activities with ease.
+- **User-Friendly Config Flow**: Set up everything through Home Assistant’s intuitive UI.
+- **Custom Lovelace Card**: Visualize your publishing status right on your dashboard.
+
+## Installation 🛠️
+
+### 1. Install via HACS (Highly Recommended)
+
 1. **Add Custom Repository in HACS**:
-   - Go to **HACS > Integrations > ... (3-dot menu) > Custom Repositories**.
+   - Navigate to **HACS > Integrations > ... (3-dot menu) > Custom Repositories**.
    - Enter `https://github.com/henzard/ha_wp_publisher` as the repository URL.
    - Select **Integration** as the category.
    - Click **Add**.
 
 2. **Install HA WP Publisher**:
-   - Search for **HA WP Publisher** in **HACS > Integrations**.
-   - Click **Install** and follow the prompts.
+   - Go to **HACS > Integrations**.
+   - Search for **HA WP Publisher**.
+   - Click **Install** and follow the on-screen instructions.
    - **Restart** Home Assistant if prompted.
 
-3. **Configure the Integration**:
-   - Navigate to **Settings > Devices & Services** in Home Assistant.
-   - Click **Add Integration**, search for **HA WP Publisher**, and follow the setup steps.
+### 2. Manual Installation
 
-### 2. Add the Custom Lovelace Card Manually
-Since the Lovelace card isn't automatically managed by HACS in a combined repository, you'll need to add it manually:
+1. **Clone or Download the Repository**:
+   ```bash
+   git clone https://github.com/henzard/ha_wp_publisher.git
+   ```
+
+2. **Copy Files to Home Assistant**:
+   - Place the `ha_wp_publisher` folder into your Home Assistant’s `custom_components` directory:
+     ```
+     /config/custom_components/ha_wp_publisher/
+     ```
+
+3. **Restart Home Assistant**:
+   - Navigate to **Configuration > Server Controls**.
+   - Click **Restart** under **Server Management**.
+
+## Configuration 📝
+
+1. **Add the Integration**:
+   - Go to **Settings > Devices & Services** in Home Assistant.
+   - Click **Add Integration** and search for **HA WP Publisher**.
+   - Follow the setup wizard to enter your WordPress URL, credentials, and select the sensors you wish to publish.
+
+2. **Customize Your Posts**:
+   - Utilize Jinja2 templates to format your post titles and content.
+   - Example:
+     ```yaml
+     post_title: "Current Temperature: {{ states('sensor.temperature') }}°C"
+     post_content: "The temperature in the living room is now {{ states('sensor.temperature') }}°C as of {{ now().strftime('%Y-%m-%d %H:%M:%S') }}."
+     ```
+
+## Adding the Custom Lovelace Card 🎨
+
+Since HA WP Publisher includes a custom Lovelace card for monitoring publish status, follow these steps to add it to your dashboard:
 
 1. **Upload the Lovelace Card JavaScript File**:
-   - Ensure `wp_publisher_status-card.js` is placed in the `www/wp_publisher_status-card/` directory of your Home Assistant configuration.
+   - Ensure `wp_publisher_status-card.js` is placed in the `www/wp_publisher_status-card/` directory of your Home Assistant configuration:
+     ```
+     /config/www/wp_publisher_status-card/wp_publisher_status-card.js
+     ```
 
 2. **Add Lovelace Resource**:
    - Go to **Settings > Dashboards > Resources**.
@@ -41,10 +83,9 @@ Since the Lovelace card isn't automatically managed by HACS in a combined reposi
    - **Resource type**: **JavaScript Module**
    - Click **Create**.
 
-3. **Add the Lovelace Card to Your Dashboard**:
-   - Go to your desired dashboard and enter **Edit** mode.
-   - Click **Add Card**.
-   - Select **Manual Card**.
+3. **Add the Card to Your Dashboard**:
+   - Navigate to your desired dashboard and enter **Edit** mode.
+   - Click **Add Card** and select **Manual Card**.
    - Paste the following YAML configuration:
      ```yaml
      type: 'custom:wp-publisher-status-card'
@@ -53,30 +94,61 @@ Since the Lovelace card isn't automatically managed by HACS in a combined reposi
    - Adjust the `entity` field if your sensor has a different entity ID.
    - Click **Save** to add the card to your dashboard.
 
-## Configuration
-
-1. **Configure the Integration**:
-   - During setup, enter your WordPress URL, credentials, select sensor entities, and configure advanced options like post type and publish interval.
-
-2. **Using Templates**:
-   - Utilize Home Assistant’s Jinja2 templating within automations or scripts to customize post titles and content.
-
-## Usage Notes
+## Usage Notes 🛡️
 
 - **Authentication**:
   - For enhanced security, consider using [WordPress Application Passwords](https://wordpress.org/support/article/application-passwords/) instead of your main username/password.
 
 - **Custom Endpoints**:
-  - Modify the `coordinator.py` to publish data to custom WordPress routes or plugin endpoints if needed.
+  - Modify `coordinator.py` to publish data to custom WordPress routes or plugin endpoints if needed.
 
-- **Templating**:
-  - Combine with Home Assistant automations or scripts to generate templated post titles and content.
+- **Error Handling**:
+  - HA WP Publisher gracefully handles connectivity issues by logging errors and retrying as configured.
 
-## Contributing
+## Unit Testing 🧪
 
-- Pull requests and suggestions are welcome.
-- Please open issues for any bugs or feature requests.
+Ensure everything runs smoothly by running the included unit tests:
 
-## License
+1. **Navigate to the Repository**:
+   ```bash
+   cd ha_wp_publisher
+   ```
 
-- [MIT License](LICENSE) – You’re free to modify and distribute.
+2. **Install Dependencies**:
+   ```bash
+   pip install pytest pytest-homeassistant-custom
+   ```
+
+3. **Run Tests**:
+   ```bash
+   pytest --maxfail=1 --disable-warnings -q
+   ```
+
+## Contributing 🤝
+
+Love HA WP Publisher and want to make it even better? Contributions are welcome!
+
+1. **Fork the Repository**: Click the **Fork** button at the top right of [the repository](https://github.com/henzard/ha_wp_publisher).
+
+2. **Create a Feature Branch**:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Commit Your Changes**:
+   ```bash
+   git commit -m "Add awesome feature"
+   ```
+
+4. **Push to Your Fork**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+5. **Open a Pull Request**: Go to the original repository and click **Compare & pull request**.
+
+## License 📝
+
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+
+**HA WP Publisher** is [MIT Licensed](LICENSE). Have fun, share freely, and keep the good vibes flowing!
