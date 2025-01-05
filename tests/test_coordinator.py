@@ -7,8 +7,8 @@ from unittest.mock import patch, AsyncMock
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import UpdateFailed
 
-from ha_wp_publisher.coordinator import WordPressPublisherCoordinator
-from ha_wp_publisher.const import (
+from custom_components.ha_wp_publisher.coordinator import WordPressPublisherCoordinator
+from custom_components.ha_wp_publisher.const import (
     CONF_WP_URL,
     CONF_WP_USER,
     CONF_WP_PASSWORD,
