@@ -1,119 +1,82 @@
 # HA WP Publisher
 
-*Home Assistant custom integration to publish sensor data to WordPress.*
-
-## Overview
-- Publishes sensor state changes automatically to a WordPress REST endpoint  
-- Uses Home Assistant’s **Config Flow** to manage WordPress credentials and sensor selections  
-- Can be installed via [HACS](https://hacs.xyz/) or manually copied into `custom_components/`  
+*Home Assistant integration to publish sensor data to WordPress, along with a custom Lovelace card.*
 
 ## Features
-- **Config Flow UI**: Easily configure your WordPress URL, credentials, and sensor entities  
-- **Dynamic Updates**: Automatically publishes sensor state changes in real time  
-- **Customizable**: Use your own WordPress endpoints or the default REST API (`wp-json/wp/v2/posts`)  
+- **Config Flow UI**: Easily configure your WordPress URL, credentials, and sensor entities.
+- **Customizable Post Types & Fields**: Publish to custom WordPress post types and include custom fields.
+- **Expanded Templating & Formatting**: Use Jinja2 templates for post titles and content.
+- **Real-Time or Scheduled Publishing**: Choose between immediate publishing on state changes or scheduled batch updates.
+- **Advanced Logging & Monitoring**: Track publish status and errors via a sensor entity.
+- **Custom Lovelace Card**: Visualize publish status directly on your Home Assistant dashboard.
 
 ## Installation
 
-### 1. HACS (Preferred)
-1. Add this repository as a *Custom Repository* in HACS:
-   - *HACS > Integrations > ... (3-dot menu) > Custom Repositories*
-   - Paste the GitHub URL, select *Integration*, and click *Add*.
-2. Search for *“HA WP Publisher”* in HACS Integrations and click *Install*.
-3. **Restart** Home Assistant.
+### 1. Install the Integration via HACS (Preferred)
+1. **Add Custom Repository in HACS**:
+   - Go to **HACS > Integrations > ... (3-dot menu) > Custom Repositories**.
+   - Enter `https://github.com/henzard/ha_wp_publisher` as the repository URL.
+   - Select **Integration** as the category.
+   - Click **Add**.
 
-### 2. Manual Installation
-1. Download or clone this repository.
-2. Copy the `ha_wp_publisher` folder into your `custom_components` directory, so you have:
-   ```
-   custom_components/
-   └── ha_wp_publisher/
-       ├── __init__.py
-       ├── manifest.json
-       ├── config_flow.py
-       ├── const.py
-       ├── coordinator.py
-   ```
-3. **Restart** Home Assistant.
+2. **Install HA WP Publisher**:
+   - Search for **HA WP Publisher** in **HACS > Integrations**.
+   - Click **Install** and follow the prompts.
+   - **Restart** Home Assistant if prompted.
+
+3. **Configure the Integration**:
+   - Navigate to **Settings > Devices & Services** in Home Assistant.
+   - Click **Add Integration**, search for **HA WP Publisher**, and follow the setup steps.
+
+### 2. Add the Custom Lovelace Card Manually
+Since the Lovelace card isn't automatically managed by HACS in a combined repository, you'll need to add it manually:
+
+1. **Upload the Lovelace Card JavaScript File**:
+   - Ensure `wp_publisher_status-card.js` is placed in the `www/wp_publisher_status-card/` directory of your Home Assistant configuration.
+
+2. **Add Lovelace Resource**:
+   - Go to **Settings > Dashboards > Resources**.
+   - Click **Add Resource**.
+   - **URL**: `/local/wp_publisher_status-card/wp_publisher_status-card.js`
+   - **Resource type**: **JavaScript Module**
+   - Click **Create**.
+
+3. **Add the Lovelace Card to Your Dashboard**:
+   - Go to your desired dashboard and enter **Edit** mode.
+   - Click **Add Card**.
+   - Select **Manual Card**.
+   - Paste the following YAML configuration:
+     ```yaml
+     type: 'custom:wp-publisher-status-card'
+     entity: sensor.wp_publisher_status
+     ```
+   - Adjust the `entity` field if your sensor has a different entity ID.
+   - Click **Save** to add the card to your dashboard.
 
 ## Configuration
-1. Go to **Settings > Devices & Services** in Home Assistant.
-2. Click **Add Integration** and search for *“HA WP Publisher”*.
-3. In the setup form (Config Flow):
-   - Enter your WordPress URL (e.g., `https://example.com`).
-   - Enter your WordPress credentials (username and password, or application password).
-   - Select the sensor entities you want to publish.
-4. Click **Finish**. Now the integration will post updates whenever the selected sensors change state.
+
+1. **Configure the Integration**:
+   - During setup, enter your WordPress URL, credentials, select sensor entities, and configure advanced options like post type and publish interval.
+
+2. **Using Templates**:
+   - Utilize Home Assistant’s Jinja2 templating within automations or scripts to customize post titles and content.
 
 ## Usage Notes
-- **Authentication**:  
-  - If you prefer, use [WordPress Application Passwords](https://wordpress.org/support/article/application-passwords/) for more secure integration.
-- **Custom Endpoints**:  
-  - Modify `coordinator.py` to publish data to a custom WP route or plugin endpoint if you don’t want to use the default REST API.
-- **Templating**:  
+
+- **Authentication**:
+  - For enhanced security, consider using [WordPress Application Passwords](https://wordpress.org/support/article/application-passwords/) instead of your main username/password.
+
+- **Custom Endpoints**:
+  - Modify the `coordinator.py` to publish data to custom WordPress routes or plugin endpoints if needed.
+
+- **Templating**:
   - Combine with Home Assistant automations or scripts to generate templated post titles and content.
 
-## Unit Testing
-This repository contains a simple test structure using **pytest** to validate the integration’s functionality (e.g., config flow).  
-1. Install **pytest** and **pytest-homeassistant-custom** (or the official `pytest-homeassistant` package) in your development environment:
-   ```bash
-   pip install pytest pytest-homeassistant-custom
-   ```
-2. Create a `tests` folder at the same level as your `ha_wp_publisher` directory:
-   ```
-   custom_components/
-   └── ha_wp_publisher/
-       ├── __init__.py
-       ├── manifest.json
-       ├── config_flow.py
-       ├── const.py
-       ├── coordinator.py
-   tests/
-   └── test_config_flow.py
-   ```
-3. Example `test_config_flow.py`:
-   ```python
-   import pytest
-   from unittest.mock import patch
-   from homeassistant import config_entries, data_entry_flow
-   from custom_components.ha_wp_publisher.config_flow import WPConfigFlow
-   from custom_components.ha_wp_publisher.const import DOMAIN
-
-   @pytest.mark.asyncio
-   async def test_user_step(hass):
-       """Test we can configure the integration via the user step."""
-       flow = WPConfigFlow()
-       flow.hass = hass
-
-       # Start the config flow
-       result = await flow.async_step_user(
-           user_input={
-               "wp_url": "https://example.com",
-               "wp_user": "username",
-               "wp_password": "password",
-               "entities": "sensor.my_sensor"
-           }
-       )
-       # We expect the flow to create an entry
-       assert result["type"] == data_entry_flow.FlowResultType.CREATE_ENTRY
-       assert result["title"] == "HA to WP Publisher"
-       assert result["data"]["wp_url"] == "https://example.com"
-       assert result["data"]["wp_user"] == "username"
-       assert result["data"]["wp_password"] == "password"
-       assert result["data"]["entities"] == "sensor.my_sensor"
-   ```
-4. Run tests:
-   ```bash
-   pytest --maxfail=1 --disable-warnings -q
-   ```
-   - *Adjust your command flags as needed.*  
-
-**Tips**:
-- **Mock external services** (e.g., WordPress REST API) to avoid making real network requests during tests.
-- **Add more tests** for coordinator logic, error handling, etc.
-
 ## Contributing
+
 - Pull requests and suggestions are welcome.
 - Please open issues for any bugs or feature requests.
 
 ## License
+
 - [MIT License](LICENSE) – You’re free to modify and distribute.
