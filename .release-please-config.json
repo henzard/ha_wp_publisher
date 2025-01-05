@@ -1,0 +1,10 @@
+{
+  "release-type": "simple",
+  "package-name": "ha_wp_publisher",
+  "monorepo-tags": false,
+  "include-v-in-tag": true,
+  "extra-files": [
+    "custom_components/ha_wp_publisher/manifest.json"
+  ],
+  "bump-minor-pre-major": true
+}
