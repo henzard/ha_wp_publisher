@@ -50,7 +50,7 @@ async def test_full_user_flow(hass: HomeAssistant):
     }
 
     with patch(
-        "ha_wp_publisher.config_flow.WPConfigFlow.async_step_advanced",
+        "custom_components.ha_wp_publisher.config_flow.WPConfigFlow.async_step_advanced",
         return_value={"type": "form", "step_id": "advanced"}
     ):
         result = await hass.config_entries.flow.async_configure(
@@ -68,7 +68,7 @@ async def test_full_user_flow(hass: HomeAssistant):
     }
 
     with patch(
-        "ha_wp_publisher.config_flow.WPConfigFlow.async_step_sensors",
+        "custom_components.ha_wp_publisher.config_flow.WPConfigFlow.async_step_sensors",
         return_value={"type": "form", "step_id": "sensors"}
     ):
         result = await hass.config_entries.flow.async_configure(
@@ -84,7 +84,7 @@ async def test_full_user_flow(hass: HomeAssistant):
     }
 
     with patch(
-        "ha_wp_publisher.config_flow.WPConfigFlow.async_create_entry",
+        "custom_components.ha_wp_publisher.config_flow.WPConfigFlow.async_create_entry",
         return_value=config_entries.ConfigFlowResult(
             type=config_entries.ConfigFlowResultType.CREATE_ENTRY,
             title="HA to WP Publisher",
