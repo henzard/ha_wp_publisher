@@ -8,18 +8,30 @@ from unittest.mock import patch
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 
-# Import directly from the module path
-from custom_components.ha_wp_publisher.config_flow import WPConfigFlow
-from custom_components.ha_wp_publisher.const import (
-    DOMAIN,
-    CONF_WP_URL,
-    CONF_WP_USER,
-    CONF_WP_PASSWORD,
-    CONF_POST_TYPE,
-    CONF_CUSTOM_FIELDS,
-    CONF_PUBLISH_INTERVAL,
-    CONF_ENTITIES
-)
+try:
+    from custom_components.ha_wp_publisher.config_flow import WPConfigFlow
+    from custom_components.ha_wp_publisher.const import (
+        DOMAIN,
+        CONF_WP_URL,
+        CONF_WP_USER,
+        CONF_WP_PASSWORD,
+        CONF_POST_TYPE,
+        CONF_CUSTOM_FIELDS,
+        CONF_PUBLISH_INTERVAL,
+        CONF_ENTITIES
+    )
+except ImportError:
+    from ..custom_components.ha_wp_publisher.config_flow import WPConfigFlow
+    from ..custom_components.ha_wp_publisher.const import (
+        DOMAIN,
+        CONF_WP_URL,
+        CONF_WP_USER,
+        CONF_WP_PASSWORD,
+        CONF_POST_TYPE,
+        CONF_CUSTOM_FIELDS,
+        CONF_PUBLISH_INTERVAL,
+        CONF_ENTITIES
+    )
 
 from tests.common import MockConfigEntry
 
