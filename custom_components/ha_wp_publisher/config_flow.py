@@ -6,11 +6,7 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.core import callback
-from homeassistant.helpers.selector import (
-    EntitySelector,
-    EntitySelectorConfig,
-    Selector
-)
+from homeassistant.helpers import selector
 
 DOMAIN = "ha_wp_publisher"
 
@@ -42,14 +38,11 @@ STEP_ADVANCED_DATA_SCHEMA = vol.Schema({
 })
 
 # Step 3 schema: Sensor selection
-# This example uses a single multi-entity selector for demonstration.
 STEP_SENSOR_DATA_SCHEMA = vol.Schema({
-    vol.Optional(CONF_ENTITIES): Selector(
-        EntitySelector(
-            EntitySelectorConfig(
-                domain=["sensor"],  # Only sensors
-                multiple=True       # Let user pick multiple sensors
-            )
+    vol.Optional(CONF_ENTITIES): selector.EntitySelector(
+        selector.EntitySelectorConfig(
+            domain=["sensor"],
+            multiple=True
         )
     )
 })
