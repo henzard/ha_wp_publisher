@@ -20,36 +20,9 @@
 
 ## Installation 🛠️
 
-### 1. Install via HACS (Highly Recommended)
+You can install this integration using HACS. Click the button below to add it to your Home Assistant:
 
-1. **Add Custom Repository in HACS**:
-   - Navigate to **HACS > Integrations > ... (3-dot menu) > Custom Repositories**.
-   - Enter `https://github.com/henzard/ha_wp_publisher` as the repository URL.
-   - Select **Integration** as the category.
-   - Click **Add**.
-
-2. **Install HA WP Publisher**:
-   - Go to **HACS > Integrations**.
-   - Search for **HA WP Publisher**.
-   - Click **Install** and follow the on-screen instructions.
-   - **Restart** Home Assistant if prompted.
-
-### 2. Manual Installation
-
-1. **Clone or Download the Repository**:
-   ```bash
-   git clone https://github.com/henzard/ha_wp_publisher.git
-   ```
-
-2. **Copy Files to Home Assistant**:
-   - Place the `ha_wp_publisher` folder into your Home Assistant’s `custom_components` directory:
-     ```
-     /config/custom_components/ha_wp_publisher/
-     ```
-
-3. **Restart Home Assistant**:
-   - Navigate to **Configuration > Server Controls**.
-   - Click **Restart** under **Server Management**.
+[![Add to HACS](https://raw.githubusercontent.com/henzard/ha_wp_publisher/main/logo.png)](https://github.com/henzard/ha_wp_publisher)
 
 ## Configuration 📝
 
@@ -152,3 +125,7 @@ Love HA WP Publisher and want to make it even better? Contributions are welcome!
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 **HA WP Publisher** is [MIT Licensed](LICENSE). Have fun, share freely, and keep the good vibes flowing!
+
+## Documentation
+
+For more information, visit the [documentation](https://github.com/henzard/ha_wp_publisher/blob/main/README.md).
