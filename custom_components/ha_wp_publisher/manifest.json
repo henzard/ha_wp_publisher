@@ -1,0 +1,10 @@
+{
+  "domain": "ha_wp_publisher",
+  "name": "Home Assistant to WordPress Publisher",
+  "documentation": "https://github.com/yourusername/ha_wp_publisher",
+  "requirements": [],
+  "codeowners": ["@yourusername"],
+  "version": "1.0.0",
+  "config_flow": true,
+  "iot_class": "cloud_polling"
+}
