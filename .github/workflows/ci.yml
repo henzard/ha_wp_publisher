@@ -21,12 +21,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure full history is fetched
+          fetch-depth: 0  # Ensure full history is fetched for versioning
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'  # Ensure this matches your project's Python version
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-test.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Upgrade pip
         run: |
@@ -34,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pytest pytest-homeassistant-custom-component requests
+          pip install -r requirements-test.txt
 
       - name: Run tests
         run: |
