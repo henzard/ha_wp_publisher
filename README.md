@@ -24,6 +24,12 @@ You can install this integration using HACS. Click the button below to add it to
 
 [![Add to HACS](https://raw.githubusercontent.com/henzard/ha_wp_publisher/main/logo.png)](https://github.com/henzard/ha_wp_publisher)
 
+### Adding via Home Assistant UI
+
+1. Go to **Settings > Devices & Services** in Home Assistant.
+2. Click **Add Integration**.
+3. Search for **HA WP Publisher** and follow the setup wizard to enter your WordPress URL, credentials, and select the sensors you wish to publish.
+
 ## Configuration 📝
 
 1. **Add the Integration**:

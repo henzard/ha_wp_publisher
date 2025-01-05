@@ -1,9 +1,11 @@
 {
   "domain": "ha_wp_publisher",
   "name": "HA WP Publisher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "documentation": "https://github.com/henzard/ha_wp_publisher/blob/main/README.md",
   "requirements": ["requests"],
   "dependencies": [],
-  "codeowners": ["@henzard"]
+  "codeowners": ["@henzard"],
+  "config_flow": true,
+  "iot_class": "local_polling"
 }
