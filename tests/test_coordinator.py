@@ -1,6 +1,4 @@
-"""
-Unit tests for the ha_wp_publisher coordinator.
-"""
+# tests/test_coordinator.py
 
 import json
 import pytest
@@ -106,7 +104,7 @@ async def test_coordinator_scheduled_publish(hass: HomeAssistant):
 
     # Mock the async_publish_state method
     with patch.object(coordinator, 'async_publish_state', new_callable=AsyncMock) as mock_publish:
-        # Trigger the scheduled update manually
+        # Simulate a scheduled update
         await coordinator.async_refresh()
 
         # Ensure async_publish_state is called for each entity
