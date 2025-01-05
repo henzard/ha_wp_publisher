@@ -1,11 +1,13 @@
 # tests/__init__.py
 
-import sys
+"""Initialize the test environment."""
 import os
+import sys
+from pathlib import Path
 
-# Get the root directory (assuming tests are in ha_wp_publisher/tests/)
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CUSTOM_COMPONENTS_DIR = os.path.join(ROOT_DIR, 'custom_components')
+# Get the root directory of the project
+ROOT_DIR = Path(__file__).parent.parent.absolute()
 
-# Add custom_components to PYTHONPATH
-sys.path.insert(0, CUSTOM_COMPONENTS_DIR)
+# Add the custom_components directory to the Python path
+CUSTOM_COMPONENTS_DIR = os.path.join(ROOT_DIR, "custom_components")
+sys.path.insert(0, str(CUSTOM_COMPONENTS_DIR))

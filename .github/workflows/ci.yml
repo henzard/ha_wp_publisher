@@ -26,7 +26,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Ensure this matches your project's Python version
+          python-version: '3.9'
 
       - name: Cache pip
         uses: actions/cache@v3
@@ -45,7 +45,7 @@ jobs:
           pip install -r tests/requirements-test.txt
 
       - name: Run tests
-        env:
-          PYTHONPATH: ${{ github.workspace }}/custom_components
         run: |
-          pytest --maxfail=1 --disable-warnings -q
+          python -m pytest --maxfail=1 --disable-warnings -q
+        env:
+          PYTHONPATH: ${{ github.workspace }}
