@@ -48,4 +48,4 @@ jobs:
         run: |
           python -m pytest --maxfail=1 --disable-warnings -v
         env:
-          PYTHONPATH: ${{ github.workspace }}/custom_components
+          PYTHONPATH: ${{ github.workspace }}
