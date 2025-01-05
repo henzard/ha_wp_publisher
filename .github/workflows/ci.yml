@@ -44,6 +44,11 @@ jobs:
         run: |
           pip install -r tests/requirements-test.txt
 
+      - name: List directory structure
+        run: |
+          echo "Directory structure:"
+          ls -R
+
       - name: Run tests
         run: |
           python -m pytest --maxfail=1 --disable-warnings -v
