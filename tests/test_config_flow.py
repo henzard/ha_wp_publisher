@@ -13,8 +13,8 @@ from homeassistant.helpers.typing import ConfigType
 from homeassistant.const import CONF_NAME
 from homeassistant.setup import async_setup_component
 
-from ha_wp_publisher.config_flow import WPConfigFlow
-from ha_wp_publisher.const import (
+from custom_components.ha_wp_publisher.config_flow import WPConfigFlow
+from custom_components.ha_wp_publisher.const import (
     DOMAIN,
     CONF_WP_URL,
     CONF_WP_USER,
